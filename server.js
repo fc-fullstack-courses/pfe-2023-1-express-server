@@ -1,4 +1,5 @@
 const express = require('express');
+const yup = require('yup');
 
 const users = [{ id: 1 }, { id: 2 }];
 
@@ -38,12 +39,43 @@ app.get('/test', (req, res, next) => {
   res.send('all done');
 });
 
-// app.get('/orders', (request, response) => {
-//   console.log('orders requested');
+/*
+  1. отримати дані користувача з запиту
+  2. перевірити дані
+  3. зберігти дані (потім у БД)
+  4. створити сесію для користувача
+  5. відправити дані на кліент
 
-//   // response.end(JSON.stringify(users));
-//   response.send('orders data');
-// });
+*/
+
+// міддлвер для обробки JSON у запитах
+const bodyParserMiddleware = express.json();
+
+const REGISTRATION_SCHEMA = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().min(8).max(16).required(),
+  gender: yup.string()
+});
+
+app.post('/users', bodyParserMiddleware, (req, res, next) => {
+  
+  REGISTRATION_SCHEMA.validate(req.body).then((validatedUser) => {
+    req.user = validatedUser;
+    next();
+  }).catch(err => {
+    res.send(err.message);
+  });
+  
+}, (req, res, next) => {
+  const newUser = req.user;
+
+  newUser.id = users.length;
+  newUser.createdAt = new Date();
+
+  users.push(newUser);
+
+  res.send(newUser);
+});
 
 // будь-який GET запит
 app.get('*', (request, response) => {
