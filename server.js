@@ -1,5 +1,5 @@
 const express = require('express');
-const yup = require('yup');
+const REGISTRATION_SCHEMA = require('./validation/userSchemas');
 
 const users = [{ id: 1 }, { id: 2 }];
 
@@ -50,12 +50,6 @@ app.get('/test', (req, res, next) => {
 
 // міддлвер для обробки JSON у запитах
 const bodyParserMiddleware = express.json();
-
-const REGISTRATION_SCHEMA = yup.object({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).max(16).required(),
-  gender: yup.string()
-});
 
 app.post('/users', bodyParserMiddleware, (req, res, next) => {
   
