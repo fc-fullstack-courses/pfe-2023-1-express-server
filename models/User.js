@@ -1,4 +1,4 @@
-let users = [];
+let users = [{id: 0, email: 'test@test.test', password: '2134sadsa'}];
 
 class User {
   static async create(userData) {

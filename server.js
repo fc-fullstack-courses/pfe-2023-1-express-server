@@ -1,6 +1,6 @@
 const express = require('express');
 const { validateRegistrationMW } = require('./middlewares/user.mw');
-const { getUsers, createUser } = require('./controllers/userController');
+const { getUsers, createUser, findUser } = require('./controllers/userController');
 
 // екземпляр експресівського серверу
 const app = express();
@@ -8,6 +8,7 @@ const app = express();
 // app містить функції які відповідають всім методам HTTP запиту
 // ендпоінт (шлях, ручка) - певний шлях на сервері (/users) з певним HTTP методом
 app.get('/users', getUsers);
+app.get('/users/:userId', findUser);
 
 app.get(
   '/test',
