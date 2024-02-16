@@ -1,12 +1,12 @@
 const { REGISTRATION_SCHEMA } = require('../validation/userSchemas');
 
-module.exports.validateRegistrationMW = (req, res, next) => {
-  REGISTRATION_SCHEMA.validate(req.body)
-    .then((validatedUser) => {
-      req.user = validatedUser;
-      next();
-    })
-    .catch((err) => {
-      res.send(err.message);
-    });
+module.exports.validateRegistrationMW = async (req, res, next) => {
+  try {
+    const validatedUser = await REGISTRATION_SCHEMA.validate(req.body);
+
+    req.user = validatedUser;
+    next();
+  } catch (err) {
+    res.send(err.message);
+  }
 };
