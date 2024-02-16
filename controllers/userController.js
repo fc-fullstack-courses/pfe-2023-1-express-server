@@ -20,3 +20,11 @@ module.exports.findUser = async (req, res, next) => {
 
   res.send(user);
 }
+
+module.exports.deleteUser = async (req, res, next) => {
+  const { userId } = req.params;
+
+  const deletedUser = await User.delete(+userId);
+
+  res.send(deletedUser);
+}

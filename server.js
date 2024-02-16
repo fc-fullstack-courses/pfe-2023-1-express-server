@@ -1,6 +1,11 @@
 const express = require('express');
 const { validateRegistrationMW } = require('./middlewares/user.mw');
-const { getUsers, createUser, findUser } = require('./controllers/userController');
+const {
+  getUsers,
+  createUser,
+  findUser,
+  deleteUser,
+} = require('./controllers/userController');
 
 // екземпляр експресівського серверу
 const app = express();
@@ -9,6 +14,8 @@ const app = express();
 // ендпоінт (шлях, ручка) - певний шлях на сервері (/users) з певним HTTP методом
 app.get('/users', getUsers);
 app.get('/users/:userId', findUser);
+app.delete('/users/:userId', deleteUser);
+
 
 app.get(
   '/test',
