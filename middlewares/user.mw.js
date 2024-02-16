@@ -7,6 +7,7 @@ module.exports.validateRegistrationMW = async (req, res, next) => {
     req.user = validatedUser;
     next();
   } catch (err) {
-    res.send(err.message);
+    // змушуємо експресс запустити обробник помилок
+    next(err.message);
   }
 };
