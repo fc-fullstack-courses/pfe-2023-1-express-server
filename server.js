@@ -5,6 +5,8 @@ const router = require('./routers');
 const app = express();
 
 // міддлвер router змонтований в app
+app.use(express.json());
+
 app.use(router);
 // app.use('/api',router);
 
