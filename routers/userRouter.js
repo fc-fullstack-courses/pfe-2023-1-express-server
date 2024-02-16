@@ -8,11 +8,6 @@ const {
   updateUser,
 } = require('../controllers/userController');
 
-// міддлвер для обробки JSON у запитах
-// const bodyParserMiddleware = express.json();
-
-// роутер експрессу, містить тіж самі методи маршрутизації що і app
-const router = express.Router();
 
 const userRouter = express.Router();
 
@@ -22,6 +17,4 @@ userRouter.delete('/:userId', deleteUser);
 userRouter.put('/:userId', updateUser );
 userRouter.post('/', validateRegistrationMW, createUser);
 
-router.use('/users',userRouter);
-
-module.exports = router;
+module.exports = userRouter;
