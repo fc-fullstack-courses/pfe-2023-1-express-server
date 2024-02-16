@@ -28,3 +28,11 @@ module.exports.deleteUser = async (req, res, next) => {
 
   res.send(deletedUser);
 }
+
+module.exports.updateUser = async (req, res, next) => {
+  const {params: {userId}, body} = req;
+
+  const updatedUser = await User.update(+userId, body);
+
+  res.send(updatedUser);
+}
